@@ -14,10 +14,10 @@ def deletor():
     '''
     
     dbConnection = pymysql.connect(
-        host=os.environ.get('dbHost'),
-        user=os.environ.get('dbUser'),
-        passwd=os.environ.get('dbPass'),
-        database=os.environ.get('dbDatabase')
+        host=os.environ.get('MYSQL_HOSTNAME'),
+        user=os.environ.get('MYSQL_USER'),
+        passwd=os.environ.get('MYSQL_PASSWORD'),
+        database=os.environ.get('MYSQL_DATABASE')
     )
     
     dbCursor = dbConnection.cursor(pymysql.cursors.DictCursor)
@@ -26,7 +26,11 @@ def deletor():
     '''
         Establish a S3 connection
     '''
-    s3client = boto3.client('s3')
+    s3client = boto3.client('s3',
+                            endpoint_url=os.environ['AWS_ENDPOINT_URL'],
+                            aws_access_key_id=os.environ['python__AWS_SERVER_KEY'],
+                            aws_secret_access_key=os.environ['python__AWS_SERVER_SECRET_KEY']
+                            )
 
     print("[INFO] S3 Connected")
     
@@ -47,3 +51,4 @@ def deletor():
     
     return counter
 
+deletor()
