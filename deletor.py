@@ -52,3 +52,6 @@ def deletor():
     return counter
 
 deletor()
+print("[INFO] Completed Script - waiting a bit")
+time.sleep(os.environ.get('SLEEP_TIME',10))
+print("[INFO] Completed wait - restarting")
